@@ -10,9 +10,12 @@
         :root {
             --primary-color: #6C63FF;
             --primary-dark: #5A52D5;
+            --primary-light: #8B85FF;
             --secondary-color: #2D3250;
             --secondary-light: #424769;
             --accent-color: #FF6584;
+            --accent-light: #FF8FA3;
+            --success-color: #2ECC71;
             --light-color: #F7F7F7;
             --dark-color: #1A1D2E;
             --text-color: #2D3748;
@@ -21,6 +24,7 @@
             --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.15);
             --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-light: linear-gradient(135deg, var(--primary-light), var(--accent-light));
         }
         
         * {
@@ -121,10 +125,17 @@
             margin-bottom: 30px;
             box-shadow: var(--shadow-hover);
             transition: all 0.5s ease;
+            animation: profile-float 6s ease-in-out infinite;
+        }
+        
+        @keyframes profile-float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
         
         .profile-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(5deg);
             border-color: var(--white);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
@@ -176,6 +187,16 @@
             text-align: center;
             font-weight: 700;
             font-size: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .section-title::after {
@@ -197,6 +218,9 @@
             max-width: 700px;
             margin: 0 auto 50px;
             font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
         
         /* About Section */
@@ -223,6 +247,31 @@
             border-radius: 10px;
             padding: 30px;
             box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .personal-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-light);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
+        .personal-info:hover::before {
+            opacity: 0.05;
+        }
+        
+        .personal-info:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
         
         .info-item {
@@ -230,6 +279,8 @@
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
+            position: relative;
+            z-index: 1;
         }
         
         .info-item:last-child {
@@ -246,6 +297,33 @@
         
         .info-value {
             color: var(--text-light);
+        }
+        
+        .email-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .email-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .email-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        .email-link:hover::after {
+            width: 100%;
         }
         
         /* Skills Section */
@@ -269,7 +347,21 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
         }
+        
+        .skill-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .skill-card:nth-child(2) { animation-delay: 0.1s; }
+        .skill-card:nth-child(3) { animation-delay: 0.2s; }
+        .skill-card:nth-child(4) { animation-delay: 0.3s; }
+        .skill-card:nth-child(5) { animation-delay: 0.4s; }
+        .skill-card:nth-child(6) { animation-delay: 0.5s; }
+        .skill-card:nth-child(7) { animation-delay: 0.6s; }
+        .skill-card:nth-child(8) { animation-delay: 0.7s; }
         
         .skill-card::before {
             content: '';
@@ -285,7 +377,7 @@
         }
         
         .skill-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: var(--shadow-hover);
         }
         
@@ -355,7 +447,16 @@
             margin-bottom: 30px;
             position: relative;
             height: 100%;
+            opacity: 0;
+            transform: translateY(30px);
         }
+        
+        .project-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.4s; }
         
         .project-card::after {
             content: '';
@@ -420,6 +521,12 @@
             font-size: 0.8rem;
             margin-right: 5px;
             margin-bottom: 5px;
+            transition: all 0.3s;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-2px);
         }
         
         /* Experience Section */
@@ -441,12 +548,31 @@
             left: 30px;
             width: 2px;
             background: var(--primary-color);
+            animation: timeline-grow 2s ease-out;
+        }
+        
+        @keyframes timeline-grow {
+            from { height: 0; }
+            to { height: 100%; }
         }
         
         .timeline-item {
             position: relative;
             margin-bottom: 40px;
             padding-left: 80px;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        
+        .timeline-item.animate {
+            animation: fadeInRight 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .timeline-marker {
@@ -459,6 +585,7 @@
             background: var(--primary-color);
             border: 4px solid var(--white);
             box-shadow: 0 0 0 3px var(--primary-color);
+            animation: pulse 2s infinite;
         }
         
         .timeline-content {
@@ -466,6 +593,12 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
         
         .timeline-content h5 {
@@ -488,6 +621,14 @@
         .timeline-content li {
             margin-bottom: 8px;
             color: var(--text-light);
+            position: relative;
+        }
+        
+        .timeline-content li::before {
+            content: '▹';
+            color: var(--primary-color);
+            position: absolute;
+            left: -15px;
         }
         
         /* Contact Section */
@@ -572,21 +713,49 @@
             padding: 30px 20px;
             transition: all 0.3s;
             cursor: pointer;
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
         }
+        
+        .contact-info.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .contact-info:nth-child(2) { animation-delay: 0.2s; }
+        .contact-info:nth-child(3) { animation-delay: 0.4s; }
         
         .contact-info:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background: var(--gradient-light);
+            color: var(--white);
+        }
+        
+        .contact-info:hover i,
+        .contact-info:hover h5,
+        .contact-info:hover p {
+            color: var(--white);
         }
         
         .contact-info i {
             color: var(--primary-color);
             margin-bottom: 15px;
+            transition: all 0.3s;
         }
         
         .contact-info h5 {
             color: var(--secondary-color);
             margin-bottom: 10px;
             font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .contact-info p {
+            color: var(--text-light);
+            transition: all 0.3s;
         }
         
         .social-icons {
@@ -609,7 +778,17 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
         }
+        
+        .social-icons a.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .social-icons a:nth-child(2) { animation-delay: 0.1s; }
+        .social-icons a:nth-child(3) { animation-delay: 0.2s; }
+        .social-icons a:nth-child(4) { animation-delay: 0.3s; }
         
         .social-icons a::after {
             content: '';
@@ -729,6 +908,41 @@
         .scroll-to-top:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
+        }
+        
+        /* Particle animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         /* Responsive Styles */
@@ -858,6 +1072,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
         <div class="hero-content container">
             <img src="img/kavinkumar1.jpg" alt="Kavinkumar" class="profile-img floating">
             <h1 id="typed-name" class="pulse"></h1>
@@ -890,7 +1105,9 @@
                     </div>
                     <div class="info-item">
                         <span class="info-label">Email:</span>
-                        <span class="info-value">kavinkumarcse2003@gmail.com</span>
+                        <span class="info-value">
+                            <a href="mailto:kavinkumarcse2003@gmail.com" class="email-link">kavinkumarcse2003@gmail.com</a>
+                        </span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Phone:</span>
@@ -1114,42 +1331,128 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Auto-typing effect
-        function typeWriter(element, text, speed, callback) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                } else if (callback) {
-                    callback();
-                }
+        // Auto-typing effect with infinite loop
+        class TypeWriter {
+            constructor(element, texts, speed = 100, pause = 2000) {
+                this.element = element;
+                this.texts = texts;
+                this.speed = speed;
+                this.pause = pause;
+                this.textIndex = 0;
+                this.charIndex = 0;
+                this.isDeleting = false;
+                this.type();
             }
-            type();
+
+            type() {
+                const currentText = this.texts[this.textIndex];
+                
+                if (this.isDeleting) {
+                    // Deleting text
+                    this.element.innerHTML = currentText.substring(0, this.charIndex - 1);
+                    this.charIndex--;
+                } else {
+                    // Typing text
+                    this.element.innerHTML = currentText.substring(0, this.charIndex + 1);
+                    this.charIndex++;
+                }
+
+                // Determine typing speed
+                let typeSpeed = this.speed;
+                if (this.isDeleting) {
+                    typeSpeed /= 2; // Faster when deleting
+                }
+
+                // Check if current text is complete
+                if (!this.isDeleting && this.charIndex === currentText.length) {
+                    typeSpeed = this.pause; // Pause at end
+                    this.isDeleting = true;
+                } else if (this.isDeleting && this.charIndex === 0) {
+                    this.isDeleting = false;
+                    this.textIndex = (this.textIndex + 1) % this.texts.length; // Move to next text, loop back to start
+                    typeSpeed = 500; // Pause before starting next text
+                }
+
+                setTimeout(() => this.type(), typeSpeed);
+            }
         }
 
-        // Initialize typing effect when page loads
+        // Initialize typing effects when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const nameElement = document.getElementById('typed-name');
             const titleElement = document.getElementById('typed-title');
             
-            // Type name first
-            typeWriter(nameElement, 'kavinkumar S', 100, function() {
-                // Add cursor after name
-                nameElement.innerHTML += '<span class="typed-cursor">|</span>';
-                
-                // Then type title
-                setTimeout(function() {
-                    typeWriter(titleElement, 'Java Fullstack Developer', 80, function() {
-                        // Add cursor after title
-                        titleElement.innerHTML += '<span class="typed-cursor">|</span>';
-                    });
-                }, 500);
-            });
+            // Name typing with multiple variations
+            new TypeWriter(nameElement, [
+                'Kavinkumar S',
+                'Full Stack Developer',
+                'Java Developer',
+                'Web Developer'
+            ], 100, 2000);
+            
+            // Title typing with multiple variations
+            new TypeWriter(titleElement, [
+                'Java Fullstack Developer',
+                'B.E Computer Science Engineering',
+                'Problem Solver',
+                'Creative Thinker'
+            ], 80, 2000);
+            
+            // Create floating particles
+            createParticles();
+            
+            // Initialize animations on scroll
+            initScrollAnimations();
         });
+
+        // Create floating particles for hero section
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize scroll animations
+        function initScrollAnimations() {
+            const skillCards = document.querySelectorAll('.skill-card');
+            const projectCards = document.querySelectorAll('.project-card');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const contactInfos = document.querySelectorAll('.contact-info');
+            const socialIcons = document.querySelectorAll('.social-icons a');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe elements for animation
+            skillCards.forEach(card => observer.observe(card));
+            projectCards.forEach(card => observer.observe(card));
+            timelineItems.forEach(item => observer.observe(item));
+            contactInfos.forEach(info => observer.observe(info));
+            socialIcons.forEach(icon => observer.observe(icon));
+        }
 
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
@@ -1227,25 +1530,6 @@
             const message = 'Hello Kavinkumar, I came across your portfolio and would like to connect with you.';
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
-        });
-
-        // Skill cards animation on scroll
-        const skillCards = document.querySelectorAll('.skill-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        skillCards.forEach(card => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
         });
         
         // Update active nav link on scroll
